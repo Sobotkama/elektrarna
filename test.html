@@ -1,0 +1,33 @@
+<head>
+  <title>Wooooow</title>
+</head>
+
+<body>
+  <div id="contentor">
+    this shouldn't be here...
+  </div>
+  <script>
+    var ws = new WebSocket("ws://localhost:8000")
+    contentor = document.getElementById("contentor")
+    divs = []
+    var temp
+    for(i=0;i<4;i++){
+        console.log(i)
+        divs[i] = document.createElement('div');
+        divs[i].class = 'inner';
+        divs[i].id = i;
+        console.log(divs[i]);
+        contentor.appendChild(divs[i]);
+    }
+    ws.onmessage = function (evt){ 
+        var received_msg = evt.data;
+        parsed = JSON.parse(received_msg);
+        console.log(JSON.parse(received_msg));
+        j = 0
+        for(i in parsed){
+            divs[j].innerHTML = parsed[i]
+            j++
+        }
+    };
+  </script>
+</body>

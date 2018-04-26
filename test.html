@@ -4,11 +4,15 @@
 
 <body>
   <div id="contentor">
-    Good stuff below
+    this shouldn't be here...
   </div>
+<input type="text" id="text"/><button onclick="ws.send(textEl.value);textEl.value=''">Send</button>
   <script>
-    var ws = new WebSocket("ws://localhost:8000")
+    var ws = new WebSocket("ws://10.35.28.252:8000")
+
+    document.getElementById("contentor").innerHTML=""
     contentor = document.getElementById("contentor")
+    textEl = document.getElementById("text")
     divs = []
     var temp
     for(i=0;i<4;i++){
@@ -21,13 +25,20 @@
     }
     ws.onmessage = function (evt){ 
         var received_msg = evt.data;
+var reader = new FileReader();
+reader.addEventListener("loadend", function() {
+        var received_msg = reader.result;
+        alert(received_msg);
         parsed = JSON.parse(received_msg);
         console.log(JSON.parse(received_msg));
-	j = 0;
+        j = 0
         for(i in parsed){
-	    divs[j].innerHTML = parsed[i];
-	    j++;
+            divs[j].innerHTML = parsed[i]
+            j++
         }
+});
+alert(received_msg);
+reader.readAsText(received_msg);   
     };
   </script>
 </body>

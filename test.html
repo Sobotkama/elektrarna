@@ -4,7 +4,7 @@
 
 <body>
   <div id="contentor">
-    this shouldn't be here...
+    Good stuff below
   </div>
   <script>
     var ws = new WebSocket("ws://localhost:8000")
@@ -23,10 +23,10 @@
         var received_msg = evt.data;
         parsed = JSON.parse(received_msg);
         console.log(JSON.parse(received_msg));
-        j = 0
+	j = 0;
         for(i in parsed){
-            divs[j].innerHTML = parsed[i]
-            j++
+	    divs[j].innerHTML = parsed[i];
+	    j++;
         }
     };
   </script>

@@ -1,22 +1,18 @@
-#!/usr/bin/python3
 from time import sleep
+import automationhat
 from SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 import threading
 import json
 
 def handle(data):
-  print()
+  print(data)
 
 clients = []
 
 class listener(WebSocket):
 
   def handleMessage(self):
-    self.sendMessage(self.data)
-    print(self.data)
     handle(self.data)
-  def handleConnected(self):
-    print(self.address, 'connected')
 
   def handleClose(self):
     print(self.address, 'closed')
@@ -32,12 +28,11 @@ class listener(WebSocket):
   
   
   def send_client():
-      testField = {"a":2, "b":"string", "c":True, "d":32.4}
+      
       while True:
-          print("runing")
+          testField = automationhat.analog.read()
           for client in list(clients):
               msg = json.dumps(testField)
-              print(msg)
               client.sendMessage(msg)
           sleep(1)
 
@@ -51,10 +46,3 @@ server = SimpleWebSocketServer('', 8000, listener)
 print("threadstarted")
 
 server.serveforever()
-print("hellllo")
-
-#ws.onmessage = function (evt) 
-#               { 
-#                  var received_msg = evt.data;
-#                  console.log(JSON.parse(received_msg));
-#               };
